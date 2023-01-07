@@ -1,0 +1,52 @@
+#!/usr/bin/env php
+<?php
+$autoload = null;
+
+$autoloadFiles = [
+    __DIR__ . '/../vendor/autoload.php',
+    __DIR__ . '/../../../autoload.php'
+];
+
+foreach ($autoloadFiles as $autoloadFile) {
+    if (file_exists($autoloadFile)) {
+        $autoload = $autoloadFile;
+        break;
+    }
+}
+
+if (! $autoload) {
+    echo "Autoload file not found; try 'composer dump-autoload' first." . PHP_EOL;
+    exit(1);
+}
+
+require_once $autoload;
+error_reporting(E_ALL ^ E_DEPRECATED);
+
+use function Hexlet\Code\GenDiff\genDiff;
+use function Hexlet\Code\Utils\getFileFullPath;
+
+const DOC = <<<DOC
+gendiff -h
+
+Generate diff
+
+Usage:
+  gendiff (-h|--help)
+  gendiff (-v|--version)
+  gendiff [--format <fmt>] <firstFile> <secondFile>
+
+Options:
+  -h --help                     Show this screen
+  -v --version                  Show version
+  --format <fmt>                Report format [default: stylish]
+DOC;
+
+try {
+  $args = Docopt::handle(DOC, ['version'=> '0.0.9']);
+  $diff = genDiff($args["<firstFile>"], $args["<secondFile>"]);
+  print_r($diff);
+  print_r(PHP_EOL);
+} catch (\Exception $e) {
+  print_r($e->getMessage());
+}
+

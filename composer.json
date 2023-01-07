@@ -1,0 +1,35 @@
+{
+    "name": "hexlet/code",
+    "description": "Difference Calculator",
+    "type": "project",
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "phpstan/phpstan": "^1.9",
+        "squizlabs/php_codesniffer": "*"
+    },
+    "license": "MIT",
+    "autoload": {
+        "files": [
+            "src/Utils.php",
+            "src/GenDiff.php",
+            "src/AstData.php",
+            "src/Stylish.php",
+            "src/GenDiff.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Hexlet\\Code\\": "tests/"
+        }
+    },
+    "bin": ["bin/gendiff"],
+    "authors": [
+        {
+            "name": "Sergey Titov",
+            "email": "ya.sergeTitov@yandex.ru"
+        }
+    ],
+    "require": {
+        "docopt/docopt": "^1.0"
+    }
+}
