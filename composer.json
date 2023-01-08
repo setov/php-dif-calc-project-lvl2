@@ -14,7 +14,8 @@
             "src/GenDiff.php",
             "src/AstData.php",
             "src/Stylish.php",
-            "src/GenDiff.php"
+            "src/GenDiff.php",
+            "src/Parsers.php"
         ]
     },
     "autoload-dev": {
@@ -30,6 +31,7 @@
         }
     ],
     "require": {
-        "docopt/docopt": "^1.0"
+        "docopt/docopt": "^1.0",
+        "symfony/yaml": "^6.0"
     }
 }

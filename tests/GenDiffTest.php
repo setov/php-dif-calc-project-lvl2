@@ -25,7 +25,8 @@ class GenDiffTest extends TestCase
     public function filesProvider()
     {
         return [
-            ['file1.json', 'file2.json']
+            ['file1.json', 'file2.json'],
+            ['file1.yml', 'file2.yml']
         ];
     }
 
