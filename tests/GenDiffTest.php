@@ -18,14 +18,14 @@ class GenDiffTest extends TestCase
 
     protected function setUp(): void
     {
-        $expectdPath = $this->getFixtureFullPath('expected_flat.txt');
-        $this->expected = file_get_contents($expectdPath);
+        $expectdPath = $this->getFixtureFullPath('result_stylish.txt');
+        $this->expected = trim(file_get_contents($expectdPath));
     }
 
     public function filesProvider()
     {
         return [
-            ['flatFile1.json', 'flatFile2.json']
+            ['file1.json', 'file2.json']
         ];
     }
 
