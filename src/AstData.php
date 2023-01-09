@@ -2,26 +2,6 @@
 
 namespace Hexlet\Code\AstData;
 
-function toString($value): string
-{
-    if (is_null($value)) {
-        return "null";
-    }
-    return trim((var_export($value, true)), "'");
-}
-
-function normalize($data)
-{
-    if (!is_array($data)) {
-        return toString($data);
-    }
-    $array = [];
-
-    foreach ($data as $key => $val) {
-        $array[$key] = is_array($val) ? normalize($val) : toString($val);
-    }
-    return $array;
-}
 /**
  * represents a node in the tree
  * @param mixed $type property specifies the type of the node.
@@ -45,16 +25,6 @@ function makeNode(
         'valueAfter' => $valueAfter,
         'children' => $children,
     ];
-}
-
-function getNodeType($node)
-{
-    return $node['type'];
-}
-
-function hasChildren(array $node): bool
-{
-    return getNodeType($node) === 'complex';
 }
 
 function union(object $data1, object $data2): array
@@ -102,51 +72,7 @@ function genAst(object $firstData, object $secondData): array
         },
         []
     );
-    return normalizeAstData($ast);
-}
-
-
-function objectToArray(mixed $obj): array
-{
-    $array = [];
-    foreach ($obj as $key => $val) {
-        $array[$key] = (is_array($val) || is_object($val)) ?
-        objectToArray($val) : $val;
-    }
-    return $array;
-}
-
-function normalizeAstData(array $nodes)
-{
-    $values = objectToArray($nodes);
-    return array_map(
-        function ($node) {
-            [
-                'name' => $name,
-                'type' => $type,
-                'valueBefore' => $valueBefore,
-                'valueAfter' => $valueAfter,
-                'children' => $children
-                ] = $node;
-                $valueBefore = normalize($valueBefore);
-                $valueAfter = normalize($valueAfter);
-            if (hasChildren($node)) {
-                return makeNode(
-                    $type,
-                    $name,
-                    $valueBefore,
-                    $valueAfter,
-                    normalizeAstData($children)
-                );
-            }
-            return makeNode(
-                $type,
-                $name,
-                $valueBefore,
-                $valueAfter,
-                $children
-            );
-        },
-        $values
-    );
+    $stringifyAst = json_encode($ast);
+    $normalizeAst  = json_decode($stringifyAst, true);
+    return $normalizeAst;
 }

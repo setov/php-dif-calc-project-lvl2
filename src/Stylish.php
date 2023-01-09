@@ -6,11 +6,19 @@ const REPLACER = ' ';
 const SPACES_COUNT = 2;
 const STEP_BY_DEPTH = 2;
 
+function toString($value): string
+{
+    if (is_null($value)) {
+        return "null";
+    }
+    return trim((var_export($value, true)), "'");
+}
+
 function stringify($value, $depth)
 {
     $iter = function ($currentValue, $depthIn) use (&$iter) {
         if (!is_array($currentValue) || is_null($currentValue)) {
-            return $currentValue;
+            return toString($currentValue);
         }
         $indentSize = (int)($depthIn + SPACES_COUNT) * SPACES_COUNT;
         $currentIndent = str_repeat(REPLACER, $indentSize + SPACES_COUNT);
@@ -65,7 +73,7 @@ function stringByNodeType($node, $depth, $fun)
     }
 }
 
-function stringifyAst($ast)
+function stylish($ast)
 {
     $iter = function ($nodes, $depth) use (&$iter) {
         $indentSize = $depth * SPACES_COUNT;

@@ -18,12 +18,11 @@ if (! $autoload) {
     echo "Autoload file not found; try 'composer dump-autoload' first." . PHP_EOL;
     exit(1);
 }
-
 require_once $autoload;
+
 error_reporting(E_ALL ^ E_DEPRECATED);
 
 use function Hexlet\Code\GenDiff\genDiff;
-use function Hexlet\Code\Utils\getFileFullPath;
 
 const DOC = <<<DOC
 gendiff -h
@@ -43,7 +42,7 @@ DOC;
 
 try {
   $args = Docopt::handle(DOC, ['version'=> '0.0.9']);
-  $diff = genDiff($args["<firstFile>"], $args["<secondFile>"]);
+  $diff = genDiff($args["<firstFile>"], $args["<secondFile>"], $args["--format"]);
   print_r($diff);
   print_r(PHP_EOL);
 } catch (\Exception $e) {
