@@ -5,7 +5,7 @@ namespace Hexlet\Code\Formatters;
 use function Hexlet\Code\Formatters\Stylish\stylish;
 use function Hexlet\Code\Formatters\Plain\plain;
 
-function render($ast, $format)
+function render(mixed $ast, string $format): mixed
 {
     switch ($format) {
         case 'stylish':

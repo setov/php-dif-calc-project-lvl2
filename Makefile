@@ -6,7 +6,7 @@ console:
 
 lint:
 	composer exec --verbose phpcs -- --standard=PSR12 src tests
-	composer exec --verbose phpstan -- --level=1 --xdebug analyse src
+	composer exec --verbose phpstan -- --level=6 --xdebug analyse src
 
 lint-fix:
 	composer exec --verbose phpcbf -- --standard=PSR12 src tests

@@ -7,7 +7,7 @@ use Symfony\Component\Yaml\Yaml;
 use function Hexlet\Code\Utils\getFileContents;
 use function Hexlet\Code\Utils\getFileType;
 
-function parse($fileName)
+function parse(string $fileName): mixed
 {
     $parsers = [
     'json' => fn ($content) => json_decode($content, false, 512, JSON_THROW_ON_ERROR),

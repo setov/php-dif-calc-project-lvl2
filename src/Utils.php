@@ -2,9 +2,7 @@
 
 namespace Hexlet\Code\Utils;
 
-use function PHPUnit\Framework\isReadable;
-
-function isFileReadable($filePath): bool
+function isFileReadable(string $filePath): bool
 {
     if (! is_readable($filePath)) {
         throw new \Exception("{'$filePath'} is not readble\n", 100);
@@ -12,12 +10,12 @@ function isFileReadable($filePath): bool
     return true;
 }
 
-function getFileType($filePath)
+function getFileType(string $filePath): string
 {
     return pathinfo($filePath, PATHINFO_EXTENSION);
 }
 
-function isEqualFilesExtension($firstFilePath, $secondFilePath)
+function isEqualFilesExtension(string $firstFilePath, string $secondFilePath): bool
 {
     if (pathinfo($firstFilePath, PATHINFO_EXTENSION) !== pathinfo($secondFilePath, PATHINFO_EXTENSION)) {
         throw new \Exception("Files have different types\n", 200);
@@ -25,13 +23,13 @@ function isEqualFilesExtension($firstFilePath, $secondFilePath)
     return true;
 }
 
-function getFixtureFullPath($fixtureName)
+function getFixtureFullPath(string $fixtureName): string
 {
     $parts = [__DIR__, 'fixtures', $fixtureName];
     return realpath(implode('/', $parts));
 }
 
-function getFileFullPath($fileName, $currentDir, ...$args)
+function getFileFullPath(string $fileName, string $currentDir, mixed ...$args): string
 {
     $parts = [$currentDir,...$args, $fileName];
     $path = implode(DIRECTORY_SEPARATOR, $parts);
@@ -42,7 +40,7 @@ function getFileFullPath($fileName, $currentDir, ...$args)
     return $path;
 }
 
-function getFileContents(string $fileName)
+function getFileContents(string $fileName): mixed
 {
     $absolutePath = realpath($fileName);
     if ($absolutePath) {

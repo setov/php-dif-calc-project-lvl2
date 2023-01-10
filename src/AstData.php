@@ -2,6 +2,8 @@
 
 namespace Hexlet\Code\AstData;
 
+use function Functional\sort;
+
 /**
  * represents a node in the tree
  * @param mixed $type property specifies the type of the node.
@@ -9,7 +11,7 @@ namespace Hexlet\Code\AstData;
  * @param mixed $valueBefore
  * @param mixed $valueAfter
  * @param mixed $children The children property contains an array of child-nodes.
- * @return array
+ * @return mixed
  */
 function makeNode(
     $type,
@@ -17,7 +19,7 @@ function makeNode(
     $valueBefore = null,
     $valueAfter = null,
     $children = []
-) {
+): mixed {
     return [
         'type' => $type,
         'name' => $name,
@@ -27,7 +29,7 @@ function makeNode(
     ];
 }
 
-function union(object $data1, object $data2): array
+function union(object $data1, object $data2): mixed
 {
     $firstKeys = array_keys(get_object_vars($data1));
     $secondKeys = array_keys(get_object_vars($data2));
@@ -43,16 +45,16 @@ function union(object $data1, object $data2): array
  * The abstract syntax tree is composed of nodes
  * @param object $firstData
  * @param object $secondData
- * @return array
+ * @return mixed
  */
-function genAst(object $firstData, object $secondData): array
+function genAst(object $firstData, object $secondData): mixed
 {
     $unionKeys = union($firstData, $secondData);
 
-    usort($unionKeys, fn($a, $b) => $a <=> $b);
+    $sortedKeys = sort($unionKeys, fn($a, $b) => $a <=> $b);
 
     $ast = array_reduce(
-        $unionKeys,
+        $sortedKeys,
         function ($acc, $key) use ($firstData, $secondData) {
             if (!property_exists($firstData, $key)) {
                 return [...$acc, makeNode('added', $key, $secondData->$key, $secondData->$key)];

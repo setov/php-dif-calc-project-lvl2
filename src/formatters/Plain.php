@@ -2,7 +2,7 @@
 
 namespace Hexlet\Code\Formatters\Plain;
 
-function toString($value): string
+function toString(mixed $value): string
 {
     if (is_null($value)) {
         return "null";
@@ -10,7 +10,7 @@ function toString($value): string
     return trim((var_export($value, true)), "'");
 }
 
-function stringifyValue($value)
+function stringifyValue(mixed $value): string
 {
     if (is_array($value)) {
         return "[complex value]";
@@ -21,7 +21,7 @@ function stringifyValue($value)
     return toString($value);
 }
 
-function stringifyByNodeType($node, $ancestor, $fun)
+function stringifyByNodeType(mixed $node, string $ancestor, callable $fun): string
 {
     [
         'name' => $name,
@@ -49,7 +49,7 @@ function stringifyByNodeType($node, $ancestor, $fun)
     }
 }
 
-function plain($ast)
+function plain(mixed $ast): string
 {
     $iter = function ($nodes, $ancestor) use (&$iter) {
         $lines = array_map(

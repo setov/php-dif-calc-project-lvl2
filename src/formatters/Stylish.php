@@ -6,7 +6,7 @@ const REPLACER = ' ';
 const SPACES_COUNT = 2;
 const STEP_BY_DEPTH = 2;
 
-function toString($value): string
+function toString(mixed $value): string
 {
     if (is_null($value)) {
         return "null";
@@ -14,10 +14,10 @@ function toString($value): string
     return trim((var_export($value, true)), "'");
 }
 
-function stringify($value, $depth)
+function stringify(mixed $value, int $depth): string
 {
     $iter = function ($currentValue, $depthIn) use (&$iter) {
-        if (!is_array($currentValue) || is_null($currentValue)) {
+        if (!is_array($currentValue)) {
             return toString($currentValue);
         }
         $indentSize = (int)($depthIn + SPACES_COUNT) * SPACES_COUNT;
@@ -36,7 +36,7 @@ function stringify($value, $depth)
     return $iter($value, $depth);
 }
 
-function stringByNodeType($node, $depth, $fun)
+function stringByNodeType(mixed $node, int $depth, callable $fun): string
 {
     $indentSize = $depth * SPACES_COUNT;
     $currentIndent = str_repeat(REPLACER, $indentSize);
@@ -73,7 +73,7 @@ function stringByNodeType($node, $depth, $fun)
     }
 }
 
-function stylish($ast)
+function stylish(mixed $ast): string
 {
     $iter = function ($nodes, $depth) use (&$iter) {
         $indentSize = $depth * SPACES_COUNT;
