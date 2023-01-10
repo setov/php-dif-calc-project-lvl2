@@ -42,7 +42,7 @@ DOC;
 
 try {
   $args = Docopt::handle(DOC, ['version'=> '0.0.9']);
-  $diff = genDiff($args["<firstFile>"], $args["<secondFile>"], $args["--format"]='stylish');
+  $diff = genDiff($args["<firstFile>"], $args["<secondFile>"], $args["--format"]);
   print_r($diff);
   print_r(PHP_EOL);
 } catch (\Exception $e) {
