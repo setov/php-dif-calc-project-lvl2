@@ -74,8 +74,8 @@ function genAst(object $firstData, object $secondData): mixed
         },
         []
     );
-    $value = json_encode($ast);
-    $stringifyAst = $value ? $value : '';
-    $normalizeAst  = json_decode($stringifyAst, true);
+    $value = (bool) json_encode($ast);
+    $stringifyAst = $value ? json_encode($ast) : '';
+    $normalizeAst  = json_decode((string) $stringifyAst, true);
     return $normalizeAst;
 }
