@@ -4,7 +4,7 @@ namespace Hexlet\Code\GenDiff;
 
 use function Hexlet\Code\Parsers\parse;
 use function Hexlet\Code\AstData\genAst;
-use function Hexlet\Code\Stylish\stylish;
+use function Hexlet\Code\Formatters\render;
 
 function genDiff($fileName1, $fileName2, $format)
 {
@@ -12,10 +12,5 @@ function genDiff($fileName1, $fileName2, $format)
     $data2 = parse($fileName2);
 
     $ast = genAst($data1, $data2);
-    switch ($format) {
-        case 'stylish':
-            return stylish($ast);
-        default:
-            return stylish($ast);
-    }
+    return render($ast, $format);
 }

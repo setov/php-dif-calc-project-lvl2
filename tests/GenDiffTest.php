@@ -9,7 +9,8 @@ use function Hexlet\Code\GenDiff\genDiff;
 
 class GenDiffTest extends TestCase
 {
-    protected $expected;
+    protected $expectedStylish;
+    protected $expectedPlain;
     private function getFixtureFullPath($fixtureName)
     {
         $parts = [__DIR__, 'fixtures', $fixtureName];
@@ -18,11 +19,13 @@ class GenDiffTest extends TestCase
 
     protected function setUp(): void
     {
-        $expectdPath = $this->getFixtureFullPath('result_stylish.txt');
-        $this->expected = trim(file_get_contents($expectdPath));
+        $expectedPathStylish = $this->getFixtureFullPath('result_stylish.txt');
+        $this->expectedStylish = trim(file_get_contents($expectedPathStylish));
+        $expectedPathPlain = $this->getFixtureFullPath('result_plain.txt');
+        $this->expectedPlain = trim(file_get_contents($expectedPathPlain));
     }
 
-    public function filesProvider()
+    public function filesProviderStylish()
     {
         return [
             ['file1.json', 'file2.json', null],
@@ -32,12 +35,12 @@ class GenDiffTest extends TestCase
     }
 
     /**
-     * @dataProvider filesProvider
+     * @dataProvider filesProviderStylish
      */
     public function testGenDiff($fileName1, $fileName2, $format)
     {
         $filePath1 = $this->getFixtureFullPath($fileName1);
         $filePath2 = $this->getFixtureFullPath($fileName2);
-        $this->assertEquals($this->expected, genDiff($filePath1, $filePath2, $format));
+        $this->assertEquals($this->expectedStylish, genDiff($filePath1, $filePath2, $format));
     }
 }

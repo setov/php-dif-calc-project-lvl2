@@ -13,9 +13,11 @@
             "src/Utils.php",
             "src/GenDiff.php",
             "src/AstData.php",
-            "src/Stylish.php",
             "src/GenDiff.php",
-            "src/Parsers.php"
+            "src/Parsers.php",
+            "src/formatters/Plain.php",
+            "src/formatters/Stylish.php",
+            "src/Formatters.php"
         ]
     },
     "autoload-dev": {

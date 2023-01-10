@@ -1,6 +1,6 @@
 <?php
 
-namespace Hexlet\Code\Stylish;
+namespace Hexlet\Code\Formatters\Stylish;
 
 const REPLACER = ' ';
 const SPACES_COUNT = 2;
