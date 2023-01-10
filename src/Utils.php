@@ -41,7 +41,7 @@ function getFileContents(string $fileName): mixed
         /* @phpstan-ignore-next-line */
         throw new \Exception("{$fileName}  is not readble or doesn't exist\n", 100);
     }
-
+    /* @phpstan-ignore-next-line */
     isFileReadable($realPath);
     return file_get_contents($realPath);
 }
