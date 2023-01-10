@@ -23,23 +23,6 @@ function isEqualFilesExtension(string $firstFilePath, string $secondFilePath): b
     return true;
 }
 
-function getFixtureFullPath(string $fixtureName): string
-{
-    $parts = [__DIR__, 'fixtures', $fixtureName];
-    return realpath(implode('/', $parts));
-}
-
-function getFileFullPath(string $fileName, string $currentDir, mixed ...$args): string
-{
-    $parts = [$currentDir,...$args, $fileName];
-    $path = implode(DIRECTORY_SEPARATOR, $parts);
-    $realPath = realpath($path);
-    if (!$realPath) {
-        throw new \Exception("{$path}  is not readble or doesn't exist\n", 100);
-    }
-    return $path;
-}
-
 function getFileContents(string $fileName): mixed
 {
     $absolutePath = realpath($fileName);
