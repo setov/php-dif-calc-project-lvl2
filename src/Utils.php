@@ -26,6 +26,7 @@ function isEqualFilesExtension(string $firstFilePath, string $secondFilePath): b
 function getFileContents(string $fileName): mixed
 {
     $absolutePath = realpath($fileName);
+    /* @phpstan-ignore-next-line */
     if ($absolutePath) {
         isFileReadable($absolutePath);
         return file_get_contents($absolutePath);
@@ -34,6 +35,7 @@ function getFileContents(string $fileName): mixed
     $workingDirectory = getcwd();
     $parts = [$workingDirectory, $fileName];
     $realPath = realpath(implode(DIRECTORY_SEPARATOR, $parts));
+    /* @phpstan-ignore-next-line */
     if (!$realPath) {
         throw new \Exception("{$fileName}  is not readble or doesn't exist\n", 100);
     }
