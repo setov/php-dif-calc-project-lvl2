@@ -28,19 +28,20 @@ class GenDiffTest extends TestCase
     public function filesProviderStylish()
     {
         return [
-            ['file1.json', 'file2.json', null],
-            ['file1.yml', 'file2.yml', null],
-            ['file1.yml', 'file2.yml', 'stylish']
+            ['file1.json', 'file2.json'],
+            ['file1.yml', 'file2.yml'],
+            ['file1.yml', 'file2.yml']
         ];
     }
 
     /**
      * @dataProvider filesProviderStylish
      */
-    public function testGenDiff($fileName1, $fileName2, $format)
+    public function testGenDiff($fileName1, $fileName2)
     {
         $filePath1 = $this->getFixtureFullPath($fileName1);
         $filePath2 = $this->getFixtureFullPath($fileName2);
-        $this->assertEquals($this->expectedStylish, genDiff($filePath1, $filePath2, $format));
+        $this->assertEquals($this->expectedStylish, genDiff($filePath1, $filePath2, 'stylish'));
+        $this->assertEquals($this->expectedPlain, genDiff($filePath1, $filePath2, 'plain'));
     }
 }

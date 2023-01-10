@@ -12,10 +12,10 @@ function toString($value): string
 
 function stringifyValue($value)
 {
-    if(is_array($value)) {
+    if (is_array($value)) {
         return "[complex value]";
     }
-    if(is_string($value)) {
+    if (is_string($value)) {
         return "'{$value}'";
     }
     return toString($value);
@@ -33,20 +33,20 @@ function stringifyByNodeType($node, $ancestor, $fun)
         $newAncestor = $ancestor === '' ? "{$name}" : "{$ancestor}.{$name}";
         $beforeValue = stringifyValue($valueBefore);
         $afterValue = stringifyValue($valueAfter);
-        switch ($type) {
-          case 'unchanged':
+    switch ($type) {
+        case 'unchanged':
             return '';
-          case 'updated': {
+        case 'updated':
             return "Property '{$newAncestor}' was updated. From {$beforeValue} to {$afterValue}";
-          }
-          case 'removed':
+        case 'removed':
             return "Property '{$newAncestor}' was removed";
-          case 'added':
+        case 'added':
             return "Property '{$newAncestor}' was added with value: {$afterValue}";
-          case 'complex':
+        case 'complex':
             return $fun($children, $newAncestor);
-          default: throw new \Exception("unexpected type {$type}");
-        }
+        default:
+            throw new \Exception("unexpected type {$type}");
+    }
 }
 
 function plain($ast)
