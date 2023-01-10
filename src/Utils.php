@@ -28,6 +28,7 @@ function getFileContents(string $fileName): mixed
     $absolutePath = realpath($fileName);
     /* @phpstan-ignore-next-line */
     if ($absolutePath) {
+        /* @phpstan-ignore-next-line */
         isFileReadable($absolutePath);
         return file_get_contents($absolutePath);
     }
@@ -37,6 +38,7 @@ function getFileContents(string $fileName): mixed
     $realPath = realpath(implode(DIRECTORY_SEPARATOR, $parts));
     /* @phpstan-ignore-next-line */
     if (!$realPath) {
+        /* @phpstan-ignore-next-line */
         throw new \Exception("{$fileName}  is not readble or doesn't exist\n", 100);
     }
 
