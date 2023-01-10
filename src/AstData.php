@@ -16,7 +16,7 @@ function makeNode(
     $name,
     $valueBefore = null,
     $valueAfter = null,
-    $children = null
+    $children = []
 ) {
     return [
         'type' => $type,

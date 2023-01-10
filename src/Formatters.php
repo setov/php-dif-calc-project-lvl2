@@ -12,6 +12,8 @@ function render($ast, $format)
             return stylish($ast);
         case 'plain':
             return plain($ast);
+        case 'json':
+            return json_encode($ast);
         default:
             return stylish($ast);
     }

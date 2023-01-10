@@ -11,6 +11,7 @@ class GenDiffTest extends TestCase
 {
     protected $expectedStylish;
     protected $expectedPlain;
+    protected $expectedJson;
     private function getFixtureFullPath($fixtureName)
     {
         $parts = [__DIR__, 'fixtures', $fixtureName];
@@ -23,6 +24,8 @@ class GenDiffTest extends TestCase
         $this->expectedStylish = trim(file_get_contents($expectedPathStylish));
         $expectedPathPlain = $this->getFixtureFullPath('result_plain.txt');
         $this->expectedPlain = trim(file_get_contents($expectedPathPlain));
+        $expectedPathJson = $this->getFixtureFullPath('expected_json.json');
+        $this->expectedJson = trim(file_get_contents($expectedPathJson));
     }
 
     public function filesProviderStylish()
@@ -43,5 +46,6 @@ class GenDiffTest extends TestCase
         $filePath2 = $this->getFixtureFullPath($fileName2);
         $this->assertEquals($this->expectedStylish, genDiff($filePath1, $filePath2, 'stylish'));
         $this->assertEquals($this->expectedPlain, genDiff($filePath1, $filePath2, 'plain'));
+        $this->assertEquals($this->expectedJson, genDiff($filePath1, $filePath2, 'json'));
     }
 }
