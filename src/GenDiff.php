@@ -1,6 +1,6 @@
 <?php
 
-namespace Hexlet\Code\GenDiff;
+namespace Differ\Differ;
 
 use function Hexlet\Code\Parsers\parse;
 use function Hexlet\Code\AstData\genAst;

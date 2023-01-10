@@ -22,7 +22,7 @@ require_once $autoload;
 
 error_reporting(E_ALL ^ E_DEPRECATED);
 
-use function Hexlet\Code\GenDiff\genDiff;
+use function Differ\Differ\genDiff;
 
 const DOC = <<<DOC
 gendiff -h
