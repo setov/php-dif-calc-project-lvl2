@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hexlet\Code\Formatters\Plain;
 
 function toString(mixed $value): string
@@ -49,7 +51,7 @@ function stringifyByNodeType(mixed $node, string $ancestor, callable $fun): stri
     }
 }
 
-function plain(mixed $ast): string
+function plain(array $ast): string
 {
     $iter = function ($nodes, $ancestor) use (&$iter) {
         $lines = array_map(

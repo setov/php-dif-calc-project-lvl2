@@ -1,11 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hexlet\Code\Utils;
+
+class FileException extends \Exception
+{
+}
 
 function isFileReadable(string $filePath): bool
 {
-    if (! is_readable($filePath)) {
-        throw new \Exception("{'$filePath'} is not readble\n", 100);
+    if (!is_readable($filePath)) {
+        throw new FileException("File '{$filePath}' is not readable", 100);
     }
     return true;
 }
@@ -17,31 +23,19 @@ function getFileType(string $filePath): string
 
 function isEqualFilesExtension(string $firstFilePath, string $secondFilePath): bool
 {
-    if (pathinfo($firstFilePath, PATHINFO_EXTENSION) !== pathinfo($secondFilePath, PATHINFO_EXTENSION)) {
-        throw new \Exception("Files have different types\n", 200);
+    if (getFileType($firstFilePath) !== getFileType($secondFilePath)) {
+        throw new FileException("Files '{$firstFilePath}' and '{$secondFilePath}' have different types", 200);
     }
     return true;
 }
 
-function getFileContents(string $fileName): mixed
+function getFileContents(string $fileName): string
 {
-    $absolutePath = realpath($fileName);
-    /* @phpstan-ignore-next-line */
-    if ($absolutePath) {
-        /* @phpstan-ignore-next-line */
-        isFileReadable($absolutePath);
-        return file_get_contents($absolutePath);
+    $absolutePath = realpath($fileName) ?: realpath(getcwd() . DIRECTORY_SEPARATOR . $fileName);
+
+    if (!$absolutePath || !isFileReadable($absolutePath)) {
+        throw new FileException("File '{$fileName}' is not readable or doesn't exist", 100);
     }
 
-    $workingDirectory = getcwd();
-    $parts = [$workingDirectory, $fileName];
-    $realPath = realpath(implode(DIRECTORY_SEPARATOR, $parts));
-    /* @phpstan-ignore-next-line */
-    if (!$realPath) {
-        /* @phpstan-ignore-next-line */
-        throw new \Exception("{$fileName}  is not readble or doesn't exist\n", 100);
-    }
-    /* @phpstan-ignore-next-line */
-    isFileReadable($realPath);
-    return file_get_contents($realPath);
+    return file_get_contents($absolutePath);
 }
